@@ -36,6 +36,7 @@ class _AppState extends State<App> {
     return Container(
       padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Form(
             onSubmit: (input) {
@@ -44,6 +45,24 @@ class _AppState extends State<App> {
               });
             },
           ),
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: todos.map((todo) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(2),
+                    color: Color.fromRGBO(238, 238, 238, 1),
+                  ),
+                  width: double.infinity,
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  padding: EdgeInsets.all(10),
+                  child: Text(todo.activity),
+                );
+              }).toList(),
+            ),
+          )
         ],
       ),
     );
