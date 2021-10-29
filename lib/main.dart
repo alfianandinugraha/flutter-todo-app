@@ -76,7 +76,9 @@ class _AppState extends State<App> {
           Form(
             onSubmit: (input) {
               setState(() {
-                todos.add(Todo(input));
+                if (input != "") {
+                  todos.add(Todo(input));
+                }
               });
             },
           ),
