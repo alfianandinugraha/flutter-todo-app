@@ -25,11 +25,8 @@ class TodoWidget extends StatelessWidget {
   final Todo payload;
   final Function(Todo) onTap;
 
-  const TodoWidget({
-    Key? key, 
-    required this.payload, 
-    required this.onTap
-  }) : super(key: key);
+  const TodoWidget({Key? key, required this.payload, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +45,9 @@ class TodoWidget extends StatelessWidget {
         child: Text(
           payload.activity,
           style: TextStyle(
-            decoration: payload.isFinish ? TextDecoration.lineThrough : TextDecoration.none
-          ),
+              decoration: payload.isFinish
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none),
         ),
       ),
     );
@@ -137,6 +135,14 @@ class _FormState extends State<Form> {
 
   _FormState();
 
+  void sendPayload() {
+    widget.onSubmit!(inputText);
+    setState(() {
+      _textController.text = "";
+      inputText = "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -150,6 +156,9 @@ class _FormState extends State<Form> {
                 inputText = value;
               });
             },
+            onSubmitted: (_) {
+              sendPayload();
+            },
           ),
         ),
         Row(children: [
@@ -158,11 +167,7 @@ class _FormState extends State<Form> {
               child: MaterialButton(
                 onPressed: () {
                   if (widget.onSubmit == null) return;
-                  widget.onSubmit!(inputText);
-                  setState(() {
-                    _textController.text = "";
-                    inputText = "";
-                  });
+                  sendPayload();
                 },
                 child: Text(
                   "Add todo",
