@@ -18,6 +18,10 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(112, 11, 151, 1),
+        title: Text("Flutter Todo"),
+      ),
       body: Container(
         padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
         child: Column(
