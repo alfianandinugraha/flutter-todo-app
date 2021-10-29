@@ -3,11 +3,51 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:nanoid/nanoid.dart';
 
 void main() {
   runApp(MaterialApp(
     home: Home(),
   ));
+}
+
+class Todo {
+  String id = "";
+  String activity = "";
+  bool isFinish = false;
+
+  Todo(this.activity) {
+    id = nanoid();
+  }
+}
+
+class App extends StatefulWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  List<Todo> todos = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
+      child: Column(
+        children: [
+          Form(
+            onSubmit: (input) {
+              setState(() {
+                todos.add(Todo(input));
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class Home extends StatelessWidget {
@@ -16,23 +56,11 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(112, 11, 151, 1),
-        title: Text("Flutter Todo"),
-      ),
-      body: Container(
-        padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
-        child: Column(
-          children: [
-            Form(
-              onSubmit: (input) {
-                print(input);
-              },
-            )
-          ],
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(112, 11, 151, 1),
+          title: Text("Flutter Todo"),
         ),
-      ),
-    );
+        body: App());
   }
 }
 
