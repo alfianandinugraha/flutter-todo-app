@@ -21,6 +21,25 @@ class Todo {
   }
 }
 
+class TodoWidget extends StatelessWidget {
+  final Todo? payload;
+  const TodoWidget({Key? key, this.payload}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(2),
+        color: Color.fromRGBO(238, 238, 238, 1),
+      ),
+      width: double.infinity,
+      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+      padding: EdgeInsets.all(10),
+      child: Text(payload!.activity),
+    );
+  }
+}
+
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
 
@@ -50,15 +69,8 @@ class _AppState extends State<App> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: todos.map((todo) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: Color.fromRGBO(238, 238, 238, 1),
-                  ),
-                  width: double.infinity,
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  padding: EdgeInsets.all(10),
-                  child: Text(todo.activity),
+                return TodoWidget(
+                  payload: todo,
                 );
               }).toList(),
             ),
@@ -75,12 +87,11 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(112, 11, 151, 1),
-        title: Text("Flutter Todo"),
-      ),
-      body: App()
-    );
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(112, 11, 151, 1),
+          title: Text("Flutter Todo"),
+        ),
+        body: App());
   }
 }
 
