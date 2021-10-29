@@ -22,20 +22,31 @@ class Todo {
 }
 
 class TodoWidget extends StatelessWidget {
-  final Todo? payload;
-  const TodoWidget({Key? key, this.payload}) : super(key: key);
+  final Todo payload;
+  final Function(Todo) onTap;
+
+  const TodoWidget({
+    Key? key, 
+    required this.payload, 
+    required this.onTap
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(2),
-        color: Color.fromRGBO(238, 238, 238, 1),
+    return GestureDetector(
+      onTap: () {
+        onTap(payload);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2),
+          color: Color.fromRGBO(238, 238, 238, 1),
+        ),
+        width: double.infinity,
+        margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+        padding: EdgeInsets.all(10),
+        child: Text(payload.activity),
       ),
-      width: double.infinity,
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-      padding: EdgeInsets.all(10),
-      child: Text(payload!.activity),
     );
   }
 }
@@ -70,7 +81,11 @@ class _AppState extends State<App> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: todos.map((todo) {
                 return TodoWidget(
+                  key: Key(todo.id),
                   payload: todo,
+                  onTap: (payload) {
+                    print(payload.id);
+                  },
                 );
               }).toList(),
             ),
