@@ -45,7 +45,12 @@ class TodoWidget extends StatelessWidget {
         width: double.infinity,
         margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
         padding: EdgeInsets.all(10),
-        child: Text(payload.activity),
+        child: Text(
+          payload.activity,
+          style: TextStyle(
+            decoration: payload.isFinish ? TextDecoration.lineThrough : TextDecoration.none
+          ),
+        ),
       ),
     );
   }
@@ -84,7 +89,12 @@ class _AppState extends State<App> {
                   key: Key(todo.id),
                   payload: todo,
                   onTap: (payload) {
-                    print(payload.id);
+                    setState(() {
+                      todos = todos.map((e) {
+                        if (e.id == payload.id) e.isFinish = !payload.isFinish;
+                        return e;
+                      }).toList();
+                    });
                   },
                 );
               }).toList(),
