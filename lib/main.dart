@@ -56,11 +56,12 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromRGBO(112, 11, 151, 1),
-          title: Text("Flutter Todo"),
-        ),
-        body: App());
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(112, 11, 151, 1),
+        title: Text("Flutter Todo"),
+      ),
+      body: App()
+    );
   }
 }
 
